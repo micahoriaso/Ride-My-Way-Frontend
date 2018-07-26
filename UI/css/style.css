@@ -1,0 +1,408 @@
+* {
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+}
+
+body{
+    font-family: "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    padding: 0%;
+    margin: 0%;
+}
+
+/* Header */
+.site-header{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #fafbfc;
+    border-bottom: 1px solid #ebeff2;
+}
+
+.site-title{
+    width: 200px;
+    border-radius: 1rem;
+}
+
+.site-title a{
+    color: #1a69a4;
+}
+
+.site-header-wrapper, .main-header-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: #d1d8dd 1px solid;
+}
+
+.user-profile-pill{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-profile-dropdown .dropbtn {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: black;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+.user-profile-dropdown:hover .dropbtn {
+    color: rgba(0,0,0,0.7);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.user-profile-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropbtn a{
+    color: black
+}
+.dropbtn a:hover{
+    color: rgba(0,0,0,0.7)
+}
+
+/* Body */
+.login-signup-body{
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    background-image: url(../images/alejandro-salinas-189861-unsplash.jpg);
+    background-size: cover
+}
+.site-body{
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    flex-direction: column;
+}
+
+.signup-login-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Form */
+.signup-form-wrapper{
+    width: 20em;
+    padding: 20px;
+    background-color: #ffffff;
+    border: solid 1px #D4D4D5;
+    opacity: 0.9;
+}
+
+.form-items{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-field{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.form-field a{
+    color: #555;
+}
+
+.form-title{
+    border-bottom: solid 1px #D4D4D5;
+    padding: 10px;
+}
+
+.form-field > label {
+    color: #8D99A6;
+    font-weight: normal;
+}
+
+.form-header{
+    background-color: #fafbfc;
+    padding: .5em;
+    border-right: #d1d8dd 1px solid;
+    border-left: #d1d8dd 1px solid;
+    border-bottom: #d1d8dd 1px solid;
+    height: 50px;
+    width: 100%;
+}
+
+/* Input */
+input{
+    border: 1px solid #ced5db;
+    border-radius: 0.2em;
+    padding: 1em;
+}
+
+input:read-only{
+    background-color: #f5f7fa;
+    outline: none;
+    border: none;
+}
+
+
+/* Footer */
+.site-footer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-top: 1px solid #ebeff2;
+    padding: 1em;
+}
+
+/* Constants */
+.container{
+    width: 75%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.primary{
+    background-color: #1a69a4;
+    color: white !important;
+}
+
+.grey{
+    background-color: #E0E1E2;
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.green{
+    background-color: #21ba45;
+    color: white !important;
+}
+
+.orange{
+    background-color: #F2711C;
+    color: white !important;
+}
+
+.red{
+    background-color: #db2828;
+    color: white !important;
+}
+
+.fluid{
+    width: 100%;
+}
+
+.text.center{
+    text-align: center
+}
+
+.text.right{
+    text-align: right
+}
+
+.text.left{
+    text-align: left
+}
+
+.pull-right{
+    float: right;
+}
+
+.pull-left{
+    float: left;
+}
+
+.secondary{
+    background-color: #f9fafb;
+}
+
+.bold{
+    font-weight: 900;
+}
+
+
+
+/* Table */
+.ui.table{
+    border-collapse: collapse;
+}
+
+.ui.table td, .ui.table th{
+    border: 1px solid #d1d8dd;
+    padding: 0.7em;
+}
+
+.ui.table thead th {
+    color: #8d99a6;
+    font-weight: bold;
+}
+
+.ui.table td{
+    color: #555;
+}
+
+.table-wrapper{
+    overflow-x: auto;
+}
+.ui.very.basic.table td,  .ui.very.basic.table th{
+    border: none;
+    border-bottom: 1px solid #d1d8dd;
+}
+
+/* Button */
+.button{
+    cursor: pointer;
+    display: inline-block;
+    min-height: 1em;
+    vertical-align: baseline;
+    color: rgba(0, 0, 0, 0.6);
+    padding: 0.5em 1em 0.5em;
+    font-weight: bold;
+    line-height: 1em;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0.3rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 2px;
+}
+
+/* Grid */
+.grid{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.one.wide.column{
+    width: 6.25%
+}
+
+.two.wide.column{
+    width: 12.5%
+}
+
+.three.wide.column{
+    width: 18.75%
+}
+
+.four.wide.column{
+    width: 25%
+}
+
+.five.wide.column{
+    width: 31.25%
+}
+
+.six.wide.column{
+    width: 37.5%
+}
+
+.seven.wide.column{
+    width: 43.75%
+}
+
+.eight.wide.column{
+    width: 50%
+}
+
+.nine.wide.column{
+    width: 56.25%
+}
+
+.ten.wide.column{
+    width: 62.5%
+}
+
+.eleven.wide.column{
+    width: 68.75%
+}
+
+.twelve.wide.column{
+    width: 75%
+}
+
+.thirteen.wide.column{
+    width: 81.25%
+}
+
+.fourteen.wide.column{
+    width: 87.5%
+}
+
+.fifteen.wide.column{
+    width: 93.75%
+}
+
+.sixteen.wide.column{
+    width: 100%
+}
+
+.segment{
+    border-left: #d1d8dd 1px solid;
+    border-right: #d1d8dd 1px solid;
+    border-bottom: #d1d8dd 1px solid;
+}
+.circular{
+    border-radius: 50%;
+}
+.padded{
+    padding: 5px;
+}
+/* Responsive */
+@media only screen and (max-width: 767px){
+    .column {
+        width: 100% !important;
+    }
+}
