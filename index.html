@@ -85,6 +85,7 @@
             .then((res) => {
                 if (res.status == 200) {
                     res.json().then((data) => {
+                        localStorage.removeItem('access-token');
                         localStorage.setItem('access-token', data.access_token);
                         window.location = "profile.html";
                     });
