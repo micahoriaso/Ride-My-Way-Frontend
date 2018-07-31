@@ -94,7 +94,12 @@
                             console.log(data)
                             var tableBody = '';
                             for (var key in data.data) {
-                                tableBody += '<tr><td class="bold"><a href="offer-detail.html?id=' + data.data[key]['id'] + '">' + data.data[key]['pickup'] + ' to ' + data.data[key]['dropoff'] + '</a></td>'
+                                if (data.data[key]['owner']){
+                                    tableBody += '<tr><td class="bold"><a href="edit-ride.html?id=' + data.data[key]['id'] + '">' + data.data[key]['pickup'] + ' to ' + data.data[key]['dropoff'] + '</a></td>'
+                                }
+                                else{
+                                    tableBody += '<tr><td class="bold"><a href="offer-detail.html?id=' + data.data[key]['id'] + '">' + data.data[key]['pickup'] + ' to ' + data.data[key]['dropoff'] + '</a></td>'
+                                }
                                 tableBody += '<td>' + data.data[key]['time'] + '</td>'
                                 tableBody += '<td><span class="'+ statusColor(data.data[key]['status']) + ' dot"></span> ' + data.data[key]['status'] + '</td>'
                                 tableBody += '<td>' + data.data[key]['driver'] + '</td>'
