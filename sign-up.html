@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <div class="site-header">
+        <div class="container">
+            <div class="site-header-wrapper">
+                <h2 class="site-title">
+                    Ride My Way
+                </h2>
+                <div class="user-profile-dropdown">
+                    <button class="dropbtn">Menu
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="ride-offers.html">Find a ride</a>
+                        <a href="ride-requests.html">Requests</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-signup-body">
+        <div class="container">
+            <div class="signup-login-flex">
+                <div class="signup-form-wrapper">
+                    <form id="signup" action="#" method="post">
+                        <div class="form-items">
+                            <h3 class="form-title fluid">Sign Up to Ride My Way</h3>
+                                <div id="alert" class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                    <div id="alert-message">Indicates a dangerous or potentially negative action.</div>
+                                </div>
+                                
+                                <!-- <div class="alert success">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                    <strong>Success!</strong> Indicates a successful or positive action.
+                                </div> -->
+                            <div class="form-field fluid">
+                                <input type="text" name="firstname" required placeholder="First Name">
+                            </div>
+                            <div class="form-field fluid">
+                                <input type="text" name="lastname" required placeholder="Last Name">
+                            </div>
+                            <div class="form-field fluid">
+                                <input type="email" name="email" required placeholder="Email Address">
+                            </div>
+                            <div class="form-field fluid">
+                                <input type="password" name="password" required placeholder="Password">
+                            </div>
+                            <div class="form-field fluid">
+                                <input type="password" name="confirm_password" required placeholder="Confirm Password">
+                            </div>
+                            <div class="form-field fluid">
+                                <input class="fluid primary" type="submit" value="Sign Up">
+                                <h4 class="text center">
+                                    <a href="index.html">Already a member? Sign in</a>
+                                </h4>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="site-footer">
+        <div class="container">
+            <div class="site-copyright">
+                <p>
+                    &copy; 2018, Micah Oriaso 
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/alert.js"></script>
+    <script>
+        let signupform = document.getElementById("signup");
+        if (signupform) {
+            signupform.addEventListener("submit", signup);
+        }
+
+        function signup(event) {
+            event.preventDefault();
+
+            fetch("http:127.0.0.1:5000/api/v2/auth/signup", {
+                method: "POST",
+                mode: "cors", // no-cors, cors, *same-origin
+                credentials: "same-origin", // include, same-origin, *omit
+                body: new FormData(document.getElementById('signup'))
+            })
+            .then((res) => {
+                if (res.status == 201) {
+                    res.json().then((data) => {
+                        window.location = "profile.html";
+                    });
+                }
+                else {
+                    res.json().then((data) => {
+                        alert.style.display = "block";
+                        message.innerHTML = data.message;
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+    </script>
+    
+    
+</body>
+
+</html>

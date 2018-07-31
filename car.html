@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <div class="site-header">
+        <div class="container">
+            <div class="site-header-wrapper">
+                <h2 class="site-title">
+                    Ride My Way
+                </h2>
+                <div class="user-profile-dropdown">
+                    <button class="dropbtn">Micah Oriaso
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="ride-offers.html">Find a ride</a>
+                        <a href="ride-requests.html">Requests</a>
+                        <a href="index.html">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="site-body">
+        <div class="main-header">
+            <div class="container">
+                <div class="main-header-wrapper">
+                    <h3>Micah Oriaso</h3>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="segment fluid">
+                <form id="car" action="#" method="post">
+                    <div class="form-header">
+                            <input class="primary button pull-right" type="submit" value="Save">
+                    </div>
+                    <div class="form-items">
+                        <div class="grid">
+                            <div class="row">
+                                <div class="eight wide column">
+                                    <div class="row">
+                                        <h3>Car details</h3>
+                                    </div>
+                                    <div id="alert" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                        <div id="alert-message">Indicates a dangerous or potentially negative action.</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="eight wide column">
+                                            <div class="form-field">
+                                                <label class="field-label" for="registration">Licence Plate</label>
+                                                <input type="text" value="" name="registration">
+                                            </div>
+                                        </div>
+                                        <div class="eight wide column">
+                                            <div class="form-field">
+                                                <label class="field-label" for="model">Model</label>
+                                                <input type="text" value="" name="model">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="eight wide column">
+                                            <div class="form-field">
+                                                <label class="field-label" for="capacity">Capacity</label>
+                                                <input type="text" value="" name="capacity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="site-footer">
+        <div class="container">
+            <div class="site-copyright">
+                <p>
+                    &copy; 2018, Micah Oriaso
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/alert.js"></script>
+    <script>
+        let access_token = localStorage.getItem('access-token')
+        let form = document.getElementById('car')
+        if (form) {
+                form.addEventListener("submit", createCar);
+        }
+        function createCar(event) {
+                event.preventDefault();
+
+                fetch("http:127.0.0.1:5000/api/v2/cars", {
+                    method: "POST",
+                    mode: "cors", // no-cors, cors, *same-origin
+                    credentials: "same-origin", // include, same-origin, *omit
+                    headers: {
+                        'Authorization': 'Bearer ' + access_token
+                    },
+                    body: new FormData(document.getElementById('car'))
+                })
+                    .then((res) => {
+                        if (res.status == 201) {
+                            res.json().then((data) => {
+                                window.location = "profile.html";
+                                console.log(data)
+                            });
+                        }
+                        else {
+                            res.json().then((data) => {
+                                alert.style.display = "block";
+                                if (typeof (data.message) == 'object') {
+                                    for (var key in data.message) {
+                                        message.innerHTML = data.message[key];
+                                    }
+                                } else {
+                                    message.innerHTML = data.message;
+                                }
+                                console.log(data)
+                            });
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+    </script>
+</body>
+
+</html>

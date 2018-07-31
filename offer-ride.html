@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Offer Ride</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/flatpickr.min.css">
+</head>
+
+<body>
+    <div class="site-header">
+        <div class="container">
+            <div class="site-header-wrapper">
+                <h2 class="site-title">
+                    <a href="ride-offers.html">
+                        Ride My Way
+                    </a>
+                </h2>
+                <div class="user-profile-dropdown">
+                    <button class="dropbtn">
+                        <a href="profile.html">Micah Oriaso</a>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="ride-offers.html">Find a ride</a>
+                        <a href="ride-requests.html">Requests
+                            <span class="circular green padded bold">15</span>
+                        </a>
+                        <a href="index.html">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="site-body">
+        <div class="main-header">
+            <div class="container">
+                <div class="main-header-wrapper">
+                    <h3>New Ride</h3>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="segment fluid">
+                <form id="ride-form" action="#" method="post">
+                    <div class="form-header">
+                        <input class="primary button pull-right" type="submit" value="Save">
+                    </div>
+                    <div class="form-items">
+                        <div class="grid">
+                            <div id="alert" class="alert fluid">
+                                <div id="alert-message">Indicates a dangerous or potentially negative action.</div>
+                            </div>
+                            <div class="row">
+                                <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="pickup">From</label>
+                                        <input type="text"  name="pickup">
+                                    </div>
+                                </div>
+                                <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="dropoff">To</label>
+                                        <input type="text" name="dropoff">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="date">Date</label>
+                                        <input type="text"  id="ride-date" name="date">
+                                    </div>
+                                </div>
+                                <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="time">Leaves at</label>
+                                        <input type="text" id="ride-time" name="time">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="price">Price</label>
+                                        <input type="text"  name="price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="site-footer">
+        <div class="container">
+            <div class="site-copyright">
+                <p>
+                    &copy; 2018, Micah Oriaso
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/alert.js"></script>
+    <script src="js/flatpickr.min.js"></script>
+    <script>
+        flatpickr("#ride-date", {});
+        flatpickr("#ride-time", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+        });
+
+        let access_token = localStorage.getItem('access-token')
+        let newRideForm = document.getElementById("ride-form");
+
+        if (newRideForm) {
+            newRideForm.addEventListener("submit", createRide);
+        }
+
+        function createRide(event) {
+            event.preventDefault();
+
+            fetch("http:127.0.0.1:5000/api/v2/rides", {
+                method: "POST",
+                mode: "cors", // no-cors, cors, *same-origin
+                credentials: "same-origin", // include, same-origin, *omit
+                body: new FormData(document.getElementById('ride-form')),
+                headers: {
+                'Authorization': 'Bearer ' + access_token
+            }
+            })
+                .then((res) => {
+                    if (res.status == 201) {
+                        res.json().then((data) => {
+                            window.location = "ride-offers.html";
+                        });
+                    }
+                    else {
+                        res.json().then((data) => {
+                            alert.style.display = "block";
+                            if (typeof(data.message) == 'object')
+                            {
+                                for (var key in data.message)
+                                {
+                                    message.innerHTML = data.message[key];
+                                }
+                            }else{
+                                message.innerHTML = data.message;
+                            }
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    </script>
+</body>
+
+</html>
