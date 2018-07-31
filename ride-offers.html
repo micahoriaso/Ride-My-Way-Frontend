@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Ride Offers</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <div class="site-header">
+        <div class="container">
+            <div class="site-header-wrapper">
+                <h2 class="site-title">
+                    <a href="ride-offers.html">
+                        Ride My Way
+                    </a>
+                </h2>
+                <div class="user-profile-dropdown">
+                    <button class="dropbtn">
+                        <a href="profile.html">Micah Oriaso</a>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="ride-offers.html">Find a ride</a>
+                        <a href="ride-requests.html">Requests
+                            <span class="circular green padded bold">15</span>
+                        </a>
+                        <a href="index.html">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="site-body">
+        <div class="main-header">
+            <div class="container">
+                <div class="main-header-wrapper">
+                    <h3 class=>Ride Offers</h3>
+                    <p>
+                        <a href="offer-ride.html" class="primary button">New</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="alert" class="alert fluid">
+                <div id="alert-message">Indicates a dangerous or potentially negative action.</div>
+            </div>
+            <div class="table-wrapper fluid">
+                <table class="ui table fluid">
+                    <thead class="secondary">
+                        <tr>
+                            <th class="text left">Trip</th>
+                            <th class="text left">Departure</th>
+                            <th class="text left">Status</th>
+                            <th class="text left">Driver</th>
+                            <th class="text left">Vehicle</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="ride-table-body">
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="site-footer">
+        <div class="container">
+            <div class="site-copyright">
+                <p>
+                    &copy; 2018, Micah Oriaso
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/alert.js"></script>
+    <script>
+        let access_token = localStorage.getItem('access-token')
+        var ridesGiven = fetch("http:127.0.0.1:5000/api/v2/rides", {
+                method: "GET",
+                mode: "cors", // no-cors, cors, *same-origin
+                credentials: "same-origin", // include, same-origin, *omit
+                headers: {
+                    'Authorization': 'Bearer ' + access_token
+                }
+            })
+                .then((res) => {
+                    if (res.status == 200) {
+                        res.json().then((data) => {
+                            console.log(data)
+                            var tableBody = '';
+                            for (var key in data.data) {
+                                tableBody += '<tr><td class="bold"><a href="offer-detail.html?id=' + data.data[key]['id'] + '">' + data.data[key]['pickup'] + ' to ' + data.data[key]['dropoff'] + '</a></td>'
+                                tableBody += '<td>' + data.data[key]['time'] + '</td>'
+                                tableBody += '<td><span class="'+ statusColor(data.data[key]['status']) + ' dot"></span> ' + data.data[key]['status'] + '</td>'
+                                tableBody += '<td>' + data.data[key]['driver'] + '</td>'
+                                tableBody += '<td>' + data.data[key]['car'] + '</td>'
+                                tableBody += '<td><a href="#" id="delete-car" onclick = "deleteCar(\'' + data.data[key]['registration'] + '\')" class="green button">View</a></td></tr >'
+                            }
+                            document.getElementById('ride-table-body').innerHTML = tableBody
+                        });
+                    }
+                    else {
+                        res.json().then((data) => {
+                            alert.style.display = "block";
+                            alert.style.backgroundColor = "#f44336";
+                            message.innerHTML = data.message;
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+                
+                function statusColor(status){
+                    switch (status) {
+                        case 'In Offer':
+                            return 'green'
+                            break;
+                        case 'Started':
+                            return 'orange'
+                            break;
+                        case 'Done':
+                            return 'primary'
+                            break;
+                        default:
+                            return 'grey'
+                    }
+                }
+
+            console.log(ridesGiven)
+    </script>
+</body>
+
+</html>
