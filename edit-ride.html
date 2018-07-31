@@ -45,7 +45,7 @@
         <div class="container">
             <div class="form-header">
                     <span id="ride-status-color" class="dot"></span><span id="ride-status"></span>
-                    <a href="ride-offers.html"  class="grey button pull-right">Delete</a>
+                    <a href="ride-offers.html"  onclick = "deleteRide()" class="grey button pull-right">Delete</a>
                     <a href="#" id="save" class="primary button pull-right">Update</a>
             </div>
             <div class="segment fluid">
@@ -149,7 +149,7 @@
                                 options += '<option value=\'' + data.data.status_options[key] + '\'> ' + data.data.status_options[key] + ' </option>'
                             }
                             document.getElementById('status_options').innerHTML = options
-                            
+
                             form.elements['price'].value = data.data.price
                             form.elements['date'].value = data.data.date
                             form.elements['time'].value = data.data.time
@@ -228,6 +228,34 @@
                     console.log(err);
                 });
             }
+
+            function deleteRide() {
+                    event.preventDefault();
+
+                    fetch("http:127.0.0.1:5000/api/v2/rides/" + urlParams.get('id'), {
+                        method: "DELETE",
+                        mode: "cors", // no-cors, cors, *same-origin
+                        credentials: "same-origin", // include, same-origin, *omit
+                        headers: {
+                            'Authorization': 'Bearer ' + access_token
+                        }
+                    })
+                        .then((res) => {
+                            if (res.status == 200) {
+                                res.json().then((data) => {
+                                    window.location = "ride-offers.html";
+                                });
+                            }
+                            else {
+                                res.json().then((data) => {
+                                    alert.style.display = "block";
+                                    message.innerHTML = data.message;
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                        });
+                }
 
     </script>
 </body>
