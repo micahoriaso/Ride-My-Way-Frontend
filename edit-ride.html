@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Ride Detail</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/flatpickr.min.css">
 </head>
 
 <body>
@@ -44,7 +45,8 @@
         <div class="container">
             <div class="form-header">
                     <span id="ride-status-color" class="dot"></span><span id="ride-status"></span>
-                    <a href="ride-offers.html" class="red button pull-right">Delete</a>
+                    <a href="ride-offers.html"  class="grey button pull-right">Delete</a>
+                    <a href="#" id="save" class="primary button pull-right">Update</a>
             </div>
             <div class="segment fluid">
                 <form id="ride-form" action="#" method="post">
@@ -56,26 +58,14 @@
                             <div class="row">
                                 <div class="four wide column">
                                     <div class="form-field">
-                                        <label class="field-label" for="driver">Driver</label>
-                                        <input type="text" id="ride-time" name="driver" readonly>
+                                        <label class="field-label" for="pickup">From`</label>
+                                        <input type="text" name="pickup">
                                     </div>
                                 </div>
                                 <div class="four wide column">
                                     <div class="form-field">
-                                        <label class="field-label" for="car">Car</label>
-                                        <input type="text" id="ride-time" name="car" readonly>
-                                    </div>
-                                </div>
-                                <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="price">Price</label>
-                                        <input type="text" name="price" readonly>
-                                    </div>
-                                </div>
-                                <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="seats_available">Seats Available</label>
-                                        <input type="text" name="seats_available" readonly>
+                                        <label class="field-label" for="dropoff">To</label>
+                                        <input type="text" name="dropoff">
                                     </div>
                                 </div>
                             </div>
@@ -83,36 +73,35 @@
                                 <div class="four wide column">
                                     <div class="form-field">
                                         <label class="field-label" for="date">Date</label>
-                                        <input type="text" id="ride-date" name="date" readonly>
+                                        <input type="text" id="ride-date" name="date">
                                     </div>
                                 </div>
                                 <div class="four wide column">
                                     <div class="form-field">
                                         <label class="field-label" for="time">Leaves at</label>
-                                        <input type="text" id="ride-time" name="time" readonly>
+                                        <input type="text" id="ride-time" name="time">
                                     </div>
                                 </div>
-                                <!-- <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="driver">Driver</label>
-                                        <input type="text" id="ride-time" name="driver" readonly>
-                                    </div>
-                                </div>
-                                <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="car">Car</label>
-                                        <input type="text" id="ride-time" name="car" readonly>
-                                    </div>
-                                </div> -->
                             </div>
-                            <!-- <div class="row">
+                            <div class="row">
                                 <div class="four wide column">
                                     <div class="form-field">
                                         <label class="field-label" for="price">Price</label>
-                                        <input type="text" name="price" readonly>
+                                        <input type="text" name="price">
                                     </div>
                                 </div>
-                            </div> -->
+                                <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="status">Status</label>
+                                        <select id="status_options" name='status'>
+                                            <option value="volvo">Volvo</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="opel">Opel</option>
+                                            <option value="audi">Audi</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -130,7 +119,15 @@
     </div>
     <script src="js/main.js"></script>
     <script src="js/alert.js"></script>
+    <script src="js/flatpickr.min.js"></script>
     <script>
+        flatpickr("#ride-date", {});
+        flatpickr("#ride-time", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+        });
+
         var urlParams = new URLSearchParams(location.search);
 
         let access_token = localStorage.getItem('access-token')
@@ -147,16 +144,23 @@
                 .then((res) => {
                     if (res.status == 200) {
                         res.json().then((data) => {
+                            var options = ''
+                            for (var key in data.data.status_options) {
+                                options += '<option value=\'' + data.data.status_options[key] + '\'> ' + data.data.status_options[key] + ' </option>'
+                            }
+                            document.getElementById('status_options').innerHTML = options
+                            
                             form.elements['price'].value = data.data.price
-                            form.elements['seats_available'].value = data.data.seats_available
-                            form.elements['date'].value = friendlyDate(data.data.date)
-                            form.elements['time'].value = friendlyTime(data.data.time)
-                            form.elements['driver'].value = data.data.driver
+                            form.elements['date'].value = data.data.date
+                            form.elements['time'].value = data.data.time
+                            form.elements['pickup'].value = data.data.pickup
+                            form.elements['dropoff'].value = data.data.dropoff
+                            document.getElementById('status_options').value = data.data.status
                             document.getElementById('ride-name').innerHTML = data.data.pickup + ' to ' + data.data.dropoff
                             document.getElementById('ride-status').innerText = ' ' + data.data.status
                             document.getElementById('ride-status-color').classList.add(statusColor(data.data.status))
-                            form.elements['car'].value = data.data.car
                             console.log(data.data)
+                            
                         });
                     }
                     else {
@@ -184,6 +188,47 @@
                         return 'grey'
                 }
             }
+
+        let saveButton = document.getElementById("save");
+        if (saveButton) {
+            saveButton.addEventListener("click", editRide);
+        }
+        function editRide(event) {
+            event.preventDefault();
+            fetch("http:127.0.0.1:5000/api/v2/rides/" + urlParams.get('id'), {
+                method: "PUT",
+                mode: "cors", // no-cors, cors, *same-origin
+                credentials: "same-origin", // include, same-origin, *omit
+                body: new FormData(document.getElementById('ride-form')),
+                headers: {
+                    'Authorization': 'Bearer ' + access_token
+                }
+            })
+                .then((res) => {
+                    if (res.status == 200) {
+                        res.json().then((data) => {
+                            console.log(data)
+                            window.location = "ride-offers.html";
+                        });
+                    }
+                    else {
+                        res.json().then((data) => {
+                            alert.style.display = "block";
+                            if (typeof (data.message) == 'object') {
+                                for (var key in data.message) {
+                                    message.innerHTML = data.message[key];
+                                }
+                            } else {
+                                message.innerHTML = data.message;
+                            }
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            }
+
     </script>
 </body>
 
