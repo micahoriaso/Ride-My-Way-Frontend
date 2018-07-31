@@ -57,7 +57,6 @@
                             <th class="text left">Status</th>
                             <th class="text left">Driver</th>
                             <th class="text left">Vehicle</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="ride-table-body">
@@ -99,8 +98,7 @@
                                 tableBody += '<td>' + data.data[key]['time'] + '</td>'
                                 tableBody += '<td><span class="'+ statusColor(data.data[key]['status']) + ' dot"></span> ' + data.data[key]['status'] + '</td>'
                                 tableBody += '<td>' + data.data[key]['driver'] + '</td>'
-                                tableBody += '<td>' + data.data[key]['car'] + '</td>'
-                                tableBody += '<td><a href="#" id="delete-car" onclick = "deleteCar(\'' + data.data[key]['registration'] + '\')" class="green button">View</a></td></tr >'
+                                tableBody += '<td>' + data.data[key]['car'] + '</td><tr>'
                             }
                             document.getElementById('ride-table-body').innerHTML = tableBody
                         });

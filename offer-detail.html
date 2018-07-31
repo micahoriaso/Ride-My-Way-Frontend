@@ -37,55 +37,83 @@
         <div class="main-header">
             <div class="container">
                 <div class="main-header-wrapper">
-                    <h3>Cynthia West</h3>
+                    <h3 id="ride-name">Cynthia West</h3>
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="form-header">
+                    <span id="ride-status-color" class="dot"></span><span id="ride-status"></span>
                     <a href="ride-offers.html" class="primary button pull-right">Request</a>
                     <a href="ride-offers.html" class="red button pull-right">Delete</a>
             </div>
             <div class="segment fluid">
-                <form id="signup" action="#" method="post">
+                <form id="ride-form" action="#" method="post">
                     <div class="form-items">
                         <div class="grid">
+                            <div id="alert" class="alert fluid">
+                                <div id="alert-message">Indicates a dangerous or potentially negative action.</div>
+                            </div>
                             <div class="row">
                                 <div class="four wide column">
                                     <div class="form-field">
-                                        <label class="field-label" for="from_location">From</label>
-                                        <input type="text" value="Nyayo Stadium" name="from_location" readonly>
+                                        <label class="field-label" for="driver">Driver</label>
+                                        <input type="text" id="ride-time" name="driver" readonly>
                                     </div>
                                 </div>
                                 <div class="four wide column">
                                     <div class="form-field">
-                                        <label class="field-label" for="to_location">To</label>
-                                        <input type="text" value="T-Mall, Nairobi West" name="to_location" readonly>
+                                        <label class="field-label" for="car">Car</label>
+                                        <input type="text" id="ride-time" name="car" readonly>
+                                    </div>
+                                </div>
+                                <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="price">Price</label>
+                                        <input type="text" name="price" readonly>
+                                    </div>
+                                </div>
+                                <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="seats_available">Seats Available</label>
+                                        <input type="text" name="seats_available" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="four wide column">
                                     <div class="form-field">
-                                        <label class="field-label" for="depature_time">Leaves at</label>
-                                        <input type="text" value="6:00pm" name="depature_time" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="vehicle">Car</label>
-                                        <input type="text" value="Mazda MX5" name="vehicle" readonly>
+                                        <label class="field-label" for="date">Date</label>
+                                        <input type="text" id="ride-date" name="date" readonly>
                                     </div>
                                 </div>
                                 <div class="four wide column">
                                     <div class="form-field">
-                                        <label class="field-label" for="registration">Registration</label>
-                                        <input type="text" value="KAA 875I" name="registration" readonly>
+                                        <label class="field-label" for="time">Leaves at</label>
+                                        <input type="text" id="ride-time" name="time" readonly>
                                     </div>
                                 </div>
+                                <!-- <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="driver">Driver</label>
+                                        <input type="text" id="ride-time" name="driver" readonly>
+                                    </div>
+                                </div>
+                                <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="car">Car</label>
+                                        <input type="text" id="ride-time" name="car" readonly>
+                                    </div>
+                                </div> -->
                             </div>
+                            <!-- <div class="row">
+                                <div class="four wide column">
+                                    <div class="form-field">
+                                        <label class="field-label" for="price">Price</label>
+                                        <input type="text" name="price" readonly>
+                                    </div>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
                 </form>
@@ -102,6 +130,62 @@
         </div>
     </div>
     <script src="js/main.js"></script>
+    <script src="js/alert.js"></script>
+    <script>
+        var urlParams = new URLSearchParams(location.search);
+
+        let access_token = localStorage.getItem('access-token')
+        let form = document.getElementById('ride-form')
+        if (urlParams.has('id')) {
+            fetch("http:127.0.0.1:5000/api/v2/rides/" + urlParams.get('id'), {
+                method: "GET",
+                mode: "cors", // no-cors, cors, *same-origin
+                credentials: "same-origin", // include, same-origin, *omit
+                headers: {
+                    'Authorization': 'Bearer ' + access_token
+                }
+            })
+                .then((res) => {
+                    if (res.status == 200) {
+                        res.json().then((data) => {
+                            form.elements['price'].value = data.data.price
+                            form.elements['seats_available'].value = data.data.seats_available
+                            form.elements['date'].value = friendlyDate(data.data.date)
+                            form.elements['time'].value = friendlyTime(data.data.time)
+                            form.elements['driver'].value = data.data.driver
+                            document.getElementById('ride-name').innerHTML = data.data.pickup + ' to ' + data.data.dropoff
+                            document.getElementById('ride-status').innerText = ' ' + data.data.status
+                            document.getElementById('ride-status-color').classList.add(statusColor(data.data.status))
+                            form.elements['car'].value = data.data.car
+                            console.log(data.data)
+                        });
+                    }
+                    else {
+                        res.json().then((data) => {
+                            console.log(data)
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+        function statusColor(status) {
+                switch (status) {
+                    case 'In Offer':
+                        return 'green'
+                        break;
+                    case 'Started':
+                        return 'orange'
+                        break;
+                    case 'Done':
+                        return 'primary'
+                        break;
+                    default:
+                        return 'grey'
+                }
+            }
+    </script>
 </body>
 
 </html>
