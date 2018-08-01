@@ -94,50 +94,7 @@
     </div>
     <script src="js/main.js"></script>
     <script src="js/alert.js"></script>
-    <script>
-        let access_token = localStorage.getItem('access-token')
-        let form = document.getElementById('car')
-        if (form) {
-                form.addEventListener("submit", createCar);
-        }
-        function createCar(event) {
-                event.preventDefault();
-
-                fetch("http:127.0.0.1:5000/api/v2/cars", {
-                    method: "POST",
-                    mode: "cors", // no-cors, cors, *same-origin
-                    credentials: "same-origin", // include, same-origin, *omit
-                    headers: {
-                        'Authorization': 'Bearer ' + access_token
-                    },
-                    body: new FormData(document.getElementById('car'))
-                })
-                    .then((res) => {
-                        if (res.status == 201) {
-                            res.json().then((data) => {
-                                window.location = "profile.html";
-                                console.log(data)
-                            });
-                        }
-                        else {
-                            res.json().then((data) => {
-                                alert.style.display = "block";
-                                if (typeof (data.message) == 'object') {
-                                    for (var key in data.message) {
-                                        message.innerHTML = data.message[key];
-                                    }
-                                } else {
-                                    message.innerHTML = data.message;
-                                }
-                                console.log(data)
-                            });
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            }
-    </script>
+    <script src="js/car.js"></script>
 </body>
 
 </html>

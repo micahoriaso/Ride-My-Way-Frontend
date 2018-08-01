@@ -78,67 +78,7 @@
     </div>
     <script src="js/main.js"></script>
     <script src="js/alert.js"></script>
-    <script>
-        let access_token = localStorage.getItem('access-token')
-        var ridesGiven = fetch("http:127.0.0.1:5000/api/v2/rides", {
-                method: "GET",
-                mode: "cors", // no-cors, cors, *same-origin
-                credentials: "same-origin", // include, same-origin, *omit
-                headers: {
-                    'Authorization': 'Bearer ' + access_token
-                }
-            })
-                .then((res) => {
-                    if (res.status == 200) {
-                        res.json().then((data) => {
-                            console.log(data)
-                            var tableBody = '';
-                            for (var key in data.data) {
-                                if (data.data[key]['owner']){
-                                    tableBody += '<tr><td class="bold"><a href="edit-ride.html?id=' + data.data[key]['id'] + '">' + data.data[key]['pickup'] + ' to ' + data.data[key]['dropoff'] + '</a></td>'
-                                }
-                                else{
-                                    tableBody += '<tr><td class="bold"><a href="offer-detail.html?id=' + data.data[key]['id'] + '">' + data.data[key]['pickup'] + ' to ' + data.data[key]['dropoff'] + '</a></td>'
-                                }
-                                tableBody += '<td>' + friendlyTime(data.data[key]['time']) + '</td>'
-                                tableBody += '<td><span class="'+ statusColor(data.data[key]['status']) + ' dot"></span> ' + data.data[key]['status'] + '</td>'
-                                tableBody += '<td>' + data.data[key]['driver'] + '</td>'
-                                tableBody += '<td>' + data.data[key]['car'] + '</td><tr>'
-                            }
-                            document.getElementById('ride-table-body').innerHTML = tableBody
-                        });
-                    }
-                    else {
-                        res.json().then((data) => {
-                            alert.style.display = "block";
-                            alert.style.backgroundColor = "#f44336";
-                            message.innerHTML = data.message;
-                        });
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-
-                
-                function statusColor(status){
-                    switch (status) {
-                        case 'In Offer':
-                            return 'green'
-                            break;
-                        case 'Started':
-                            return 'orange'
-                            break;
-                        case 'Done':
-                            return 'primary'
-                            break;
-                        default:
-                            return 'grey'
-                    }
-                }
-
-            console.log(ridesGiven)
-    </script>
+    <script src="js/ride-offers.js"></script>
 </body>
 
 </html>

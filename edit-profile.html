@@ -100,72 +100,7 @@
     </div>
     <script src="js/main.js"></script>
     <script src="js/alert.js"></script>
-    <script>
-        let access_token = localStorage.getItem('access-token')
-        let form = document.getElementById('profile')
-        fetch("http:127.0.0.1:5000/api/v2/users", {
-            method: "GET",
-            mode: "cors", // no-cors, cors, *same-origin
-            credentials: "same-origin", // include, same-origin, *omit
-            headers: {
-                'Authorization': 'Bearer ' + access_token
-            }
-        })
-        .then((res) => {
-            if (res.status == 200) {
-                res.json().then((data) => {
-                    form.elements['firstname'].value = data.firstname
-                    form.elements['lastname'].value = data.lastname
-                    form.elements['email'].value = data.email
-                    form.elements['phone_number'].value = data.phone_number
-                    console.log(data)
-                });
-            }
-            else {
-                res.json().then((data) => {
-                    console.log(data)
-                });
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-        let saveButton = document.getElementById("save");
-            if (saveButton) {
-                saveButton.addEventListener("click", editProfile);
-            }
-
-            function editProfile(event) {
-                event.preventDefault();
-                fetch("http:127.0.0.1:5000/api/v2/users", {
-                    method: "PUT",
-                    mode: "cors", // no-cors, cors, *same-origin
-                    credentials: "same-origin", // include, same-origin, *omit
-                    body: new FormData(document.getElementById('profile')),
-                    headers: {
-                        'Authorization': 'Bearer ' + access_token
-                    }
-                })
-                .then((res) => {
-                    if (res.status == 200) {
-                        res.json().then((data) => {
-                            console.log(data)
-                            window.location = "profile.html";
-                        });
-                    }
-                    else {
-                        res.json().then((data) => {
-                            alert.style.display = "block";
-                            message.innerHTML = data.message;
-                        });
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-            }
-    </script>
+    <script src="js/edit-profile.js"></script>
 </body>
 
 </html>
