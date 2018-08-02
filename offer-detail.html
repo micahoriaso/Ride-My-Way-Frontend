@@ -44,13 +44,14 @@
         <div class="container">
             <div class="form-header">
                     <span id="ride-status-color" class="dot"></span><span id="ride-status"></span>
-                    <a href="ride-offers.html" class="primary button pull-right">Request</a>
+                    <a href="#" id='request-ride' class="primary button pull-right">Request</a>
             </div>
             <div class="segment fluid">
                 <form id="ride-form" action="#" method="post">
                     <div class="form-items">
                         <div class="grid">
                             <div id="alert" class="alert fluid">
+                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                 <div id="alert-message">Indicates a dangerous or potentially negative action.</div>
                             </div>
                             <div class="row">

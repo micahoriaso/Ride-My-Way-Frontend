@@ -49,62 +49,105 @@
                     <a href="#" id="save" class="primary button pull-right">Update</a>
             </div>
             <div class="segment fluid">
-                <form id="ride-form" action="#" method="post">
-                    <div class="form-items">
-                        <div class="grid">
-                            <div id="alert" class="alert fluid">
-                                <div id="alert-message">Indicates a dangerous or potentially negative action.</div>
+                <div class="form-items">
+                    <div class="grid">
+                        <div class="row">
+                        <div class="eight wide column">
+                            <form id="ride-form" action="#" method="post">
+                                <div id="alert" class="alert fluid">
+                                    <div id="alert-message">Indicates a dangerous or potentially negative action.</div>
+                                </div>
+                                <div class="row">
+                                    <div class="eight wide column">
+                                        <div class="form-field">
+                                            <label class="field-label" for="pickup">From`</label>
+                                            <input type="text" name="pickup">
+                                        </div>
+                                    </div>
+                                    <div class="eight wide column">
+                                        <div class="form-field">
+                                            <label class="field-label" for="dropoff">To</label>
+                                            <input type="text" name="dropoff">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="eight wide column">
+                                        <div class="form-field">
+                                            <label class="field-label" for="date">Date</label>
+                                            <input type="text" id="ride-date" name="date">
+                                        </div>
+                                    </div>
+                                    <div class="eight wide column">
+                                        <div class="form-field">
+                                            <label class="field-label" for="time">Leaves at</label>
+                                            <input type="text" id="ride-time" name="time">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="eight wide column">
+                                        <div class="form-field">
+                                            <label class="field-label" for="price">Price</label>
+                                            <input type="text" name="price">
+                                        </div>
+                                    </div>
+                                    <div class="eight wide column">
+                                        <div class="form-field">
+                                            <label class="field-label" for="status">Status</label>
+                                            <select id="status_options" name='status'>
+                                                <option value="volvo">Volvo</option>
+                                                <option value="saab">Saab</option>
+                                                <option value="opel">Opel</option>
+                                                <option value="audi">Audi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                             </div>
-                            <div class="row">
-                                <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="pickup">From`</label>
-                                        <input type="text" name="pickup">
-                                    </div>
-                                </div>
-                                <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="dropoff">To</label>
-                                        <input type="text" name="dropoff">
-                                    </div>
+                            <div class="eight wide column">
+                                <div class="table-wrapper fluid">
+                                    <table class="ui very basic table">
+                                        <thead class="secondary">
+                                            <tr>
+                                                <th>Requestor</th>
+                                                <th>Request Status</th>
+                                                <th></th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="request-table-body">
+                                            <tr>
+                                                <td>Mark Maasai</td>
+                                                <td>
+                                                    <a href="#" class="green button">Accept</a>
+                                                    <a href="#" class="red button">Decline</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Rashid Juma</td>
+                                                <td>
+                                                    <a href="#" class="green button">Accept</a>
+                                                    <a href="#" class="red button">Decline</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Kanze Dena</td>
+                                                <td>
+                                                    <a href="#" class="green button">Accept</a>
+                                                    <a href="#" class="red button">Decline</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        </tfoot>
+                                    </table>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="date">Date</label>
-                                        <input type="text" id="ride-date" name="date">
-                                    </div>
-                                </div>
-                                <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="time">Leaves at</label>
-                                        <input type="text" id="ride-time" name="time">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="price">Price</label>
-                                        <input type="text" name="price">
-                                    </div>
-                                </div>
-                                <div class="four wide column">
-                                    <div class="form-field">
-                                        <label class="field-label" for="status">Status</label>
-                                        <select id="status_options" name='status'>
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     </div>

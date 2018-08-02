@@ -214,7 +214,7 @@ input:read-only{
 }
 
 .green{
-    background-color: #21ba45;
+    background-color: #21ba45 !important;
     color: white !important;
 }
 

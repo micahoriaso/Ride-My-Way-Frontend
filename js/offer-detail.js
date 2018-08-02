@@ -3,7 +3,7 @@ var urlParams = new URLSearchParams(location.search);
 let access_token = localStorage.getItem('access-token')
 let form = document.getElementById('ride-form')
 if (urlParams.has('id')) {
-    fetch("http:127.0.0.1:5000/api/v2/rides/" + urlParams.get('id'), {
+    fetch(`http:127.0.0.1:5000/api/v2/rides/${urlParams.get('id')}`, {
         method: "GET",
         mode: "cors",
         credentials: "same-origin",
@@ -36,6 +36,7 @@ if (urlParams.has('id')) {
             console.log(err);
         });
 }
+
 function statusColor(status) {
     switch (status) {
         case 'In Offer':
@@ -50,4 +51,63 @@ function statusColor(status) {
         default:
             return 'grey'
     }
+}
+
+// Requesting a ride offer
+document.getElementById('request-ride').addEventListener('click', function(){
+    if (urlParams.has('id')) {
+        fetch(`http:127.0.0.1:5000/api/v2/rides/${urlParams.get('id')}/requests`, {
+            method: "POST",
+            mode: "cors",
+            credentials: "same-origin",
+            headers: {
+                'Authorization': 'Bearer ' + access_token
+            }
+        })
+        .then((res) => {
+            if (res.status == 201) {
+                res.json().then((data) => {
+                    alert.classList.add('green')
+                    alert.style.display = "block";
+                    if (typeof (data.message) == 'object') {
+                        for (var key in data.message) {
+                            message.innerHTML = data.message[key];
+                        }
+                    } else {
+                        message.innerHTML = data.message;
+                    }
+                   loadUpdatedRide()
+                });
+            }
+            else {
+                res.json().then((data) => {
+                    alert.classList.add('red')
+                    alert.style.display = "block";
+                    if (typeof (data.message) == 'object') {
+                        for (var key in data.message) {
+                            message.innerHTML = data.message[key];
+                        }
+                    } else {
+                        message.innerHTML = data.message;
+                    }
+                });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+})
+
+function loadUpdatedRide() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var data = JSON.parse(this.response)
+            form.elements['seats_available'].value = data.data.seats_available
+        }
+    };
+    xhttp.open("GET", `http:127.0.0.1:5000/api/v2/rides/${urlParams.get('id')}`, true);
+    xhttp.setRequestHeader('Authorization', `Bearer `+ access_token)
+    xhttp.send();
 }

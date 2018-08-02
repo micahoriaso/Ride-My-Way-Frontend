@@ -36,7 +36,21 @@ if (urlParams.has('id')) {
                     document.getElementById('ride-name').innerHTML = data.data.pickup + ' to ' + data.data.dropoff
                     document.getElementById('ride-status').innerText = ' ' + data.data.status
                     document.getElementById('ride-status-color').classList.add(statusColor(data.data.status))
-                    console.log(data.data)
+                    console.log(data.data.requests.data)
+                    var tableBody = '';
+                    for (key in data.data.requests.data){
+                        console.log(data.data.requests.data[key])
+                        tableBody += `
+                        <tr>
+                            <td> ${data.data.requests.data[key]['requestor']} </td>
+                            <td> ${data.data.requests.data[key]['request_status']} </td>
+                            <td>
+                                <a href="#" id="accept-request" onclick = "acceptRequest('${data.data.requests.data[key]['id']}')" class="green button">Accept</a>
+                                <a href="#" id="decline-request" onclick = "declineRequest('${data.data.requests.data[key]['id']}')" class="red button">Decline</a>
+                            </td>
+                        </tr >`
+                    }
+                    document.getElementById('request-table-body').innerHTML = tableBody
 
                 });
             }
@@ -127,6 +141,70 @@ function deleteRide() {
                 res.json().then((data) => {
                     alert.style.display = "block";
                     message.innerHTML = data.message;
+                });
+            }
+        })
+        .catch((err) => {
+        });
+}
+
+function acceptRequest(request_id) {
+    event.preventDefault();
+    var request_status = { request_status:'Accepted' }
+    fetch(`http:127.0.0.1:5000/api/v2/rides/${urlParams.get('id')}/requests/${request_id}`, {
+        method: "PUT",
+        mode: "cors", 
+        credentials: "same-origin", 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + access_token
+        },
+        body: JSON.stringify(request_status)
+    })
+        .then((res) => {
+            if (res.status == 200) {
+                res.json().then((data) => {
+                    console.log(data)
+                    // window.location = "ride-offers.html";
+                });
+            }
+            else {
+                res.json().then((data) => {
+                    console.log(data)
+                    // alert.style.display = "block";
+                    // message.innerHTML = data.message;
+                });
+            }
+        })
+        .catch((err) => {
+        });
+}
+
+function declineRequest(request_id) {
+    event.preventDefault();
+    var request_status = { 'request_status': 'Declined'}
+    fetch(`http:127.0.0.1:5000/api/v2/rides/${urlParams.get('id')}/requests/${request_id}`, {
+        method: "PUT",
+        mode: "cors", 
+        credentials: "same-origin", 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + access_token
+        },
+        body: JSON.stringify(request_status)
+    })
+        .then((res) => {
+            if (res.status == 200) {
+                res.json().then((data) => {
+                    console.log(data)
+                    // window.location = "ride-offers.html";
+                });
+            }
+            else {
+                res.json().then((data) => {
+                    console.log(data)
+                    // alert.style.display = "block";
+                    // message.innerHTML = data.message;
                 });
             }
         })

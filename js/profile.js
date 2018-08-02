@@ -15,6 +15,9 @@ fetch("http:127.0.0.1:5000/api/v2/users", {
                 form.elements['last_name'].value = data.lastname
                 form.elements['email'].value = data.email
                 form.elements['phone_number'].value = data.phone_number
+
+                document.getElementById('user-name').innerText = data.fullname
+                document.getElementById('user-profile-name').innerText = data.fullname
             });
         }
         else {
