@@ -8,6 +8,8 @@
     <title>Ride Detail</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/flatpickr.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
 </head>
 
 <body>
@@ -21,9 +23,11 @@
                 </h2>
                 <div class="user-profile-dropdown">
                     <button class="dropbtn">
-                        <a href="profile.html">Micah Oriaso</a>
+                        <a id='user-profile-name' href="profile.html">Micah Oriaso</a>
+                         &nbsp;
+                        <i class="fas fa-caret-down " id='profile-caret'></i>
                     </button>
-                    <div class="dropdown-content">
+                    <div class="dropdown-content" id="dropdown-content">
                         <a href="ride-offers.html">Find a ride</a>
                         <a href="ride-requests.html">Requests
                             <span class="circular green padded bold">15</span>
@@ -38,7 +42,7 @@
         <div class="main-header">
             <div class="container">
                 <div class="main-header-wrapper">
-                    <h3 id="ride-name">Cynthia West</h3>
+                    <h3 id="ride-name"></h3>
                 </div>
             </div>
         </div>

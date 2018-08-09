@@ -1,4 +1,3 @@
-let access_token = localStorage.getItem('access-token')
 let form = document.getElementById('profile')
 fetch("http:127.0.0.1:5000/api/v2/users", {
     method: "GET",

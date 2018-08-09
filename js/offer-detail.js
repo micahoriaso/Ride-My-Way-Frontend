@@ -1,6 +1,5 @@
 var urlParams = new URLSearchParams(location.search);
 
-let access_token = localStorage.getItem('access-token')
 let form = document.getElementById('ride-form')
 if (urlParams.has('id')) {
     fetch(`http:127.0.0.1:5000/api/v2/rides/${urlParams.get('id')}`, {

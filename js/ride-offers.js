@@ -1,4 +1,3 @@
-let access_token = localStorage.getItem('access-token')
 var ridesGiven = fetch("http:127.0.0.1:5000/api/v2/rides", {
     method: "GET",
     mode: "cors",

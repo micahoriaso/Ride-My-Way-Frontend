@@ -1,4 +1,4 @@
-let access_token = localStorage.getItem('access-token')
+// let access_token = localStorage.getItem('access-token')
 let form = document.getElementById('car')
 if (form) {
     form.addEventListener("submit", createCar);
@@ -21,6 +21,7 @@ if (urlParams.has('registration')) {
                 form.elements['registration'].value = data.data.registration
                 form.elements['model'].value = data.data.model
                 form.elements['capacity'].value = data.data.capacity
+                document.getElementById('car-name').innerHTML = data.data.registration
             });
         }
         else {

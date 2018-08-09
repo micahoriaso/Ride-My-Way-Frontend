@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Edit Profile</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
 </head>
 
 <body>
@@ -17,9 +19,12 @@
                     Ride My Way
                 </h2>
                 <div class="user-profile-dropdown">
-                    <button class="dropbtn">Micah Oriaso
+                    <button class="dropbtn">
+                        <a id='user-profile-name' href="profile.html">Micah Oriaso</a>
+                         &nbsp;
+                        <i class="fas fa-caret-down " id='profile-caret'></i>
                     </button>
-                    <div class="dropdown-content">
+                    <div id='dropdown-content' class="dropdown-content">
                         <a href="ride-offers.html">Find a ride</a>
                         <a href="ride-requests.html">Requests</a>
                         <a href="index.html">Log out</a>
@@ -32,7 +37,7 @@
         <div class="main-header">
             <div class="container">
                 <div class="main-header-wrapper">
-                    <h3>Micah Oriaso</h3>
+                    <h3 id="car-name"></h3>
                 </div>
             </div>
         </div>
@@ -46,9 +51,6 @@
                         <div class="grid">
                             <div class="row">
                                 <div class="eight wide column">
-                                    <div class="row">
-                                        <h3>Car details</h3>
-                                    </div>
                                     <div id="alert" class="alert">
                                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                                         <div id="alert-message">Indicates a dangerous or potentially negative action.</div>

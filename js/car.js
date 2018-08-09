@@ -1,4 +1,3 @@
-let access_token = localStorage.getItem('access-token')
 let form = document.getElementById('car')
 if (form) {
     form.addEventListener("submit", createCar);

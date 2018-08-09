@@ -5,7 +5,6 @@ flatpickr("#ride-time", {
     dateFormat: "H:i",
 });
 
-let access_token = localStorage.getItem('access-token')
 let newRideForm = document.getElementById("ride-form");
 
 if (newRideForm) {
