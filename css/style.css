@@ -27,8 +27,42 @@ body{
     border-radius: 1rem;
 }
 
-.site-title a{
+/* Style the list */
+ul.site-breadcrumbs {
+    list-style: none;
+    -webkit-padding-start: 0px;
+    -moz-padding-start: 0px;
+}
+
+/* Display list items side by side */
+ul.site-breadcrumbs li {
+    display: inline;
+    font-size: 14px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.site-breadcrumbs li+li:before {
+    margin-left: 0px;
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.site-breadcrumbs li a {
+    text-decoration: none;
+    color: #555;
+}
+
+/* Add a color on mouse-over */
+ul.site-breadcrumbs li a:hover {
     color: #1a69a4;
+}
+
+.site-title a{
+    color: #1a69a4 !important;
+    font-weight: 800;
+    font-size: 22px;
 }
 
 .site-header-wrapper, .main-header-wrapper{
