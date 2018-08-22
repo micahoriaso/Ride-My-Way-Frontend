@@ -61,7 +61,7 @@ ul.site-breadcrumbs li a:hover {
 
 .site-title a{
     color: #1a69a4 !important;
-    font-weight: 800;
+    font-weight: 500;
     font-size: 22px;
 }
 
@@ -70,7 +70,10 @@ ul.site-breadcrumbs li a:hover {
     display: flex;
     justify-content: space-between;
 }
-
+.site-header-wrapper{
+    height: 40px;
+    align-items: center;
+}
 .main-header{
     width: 100%;
     display: flex;
@@ -94,6 +97,7 @@ ul.site-breadcrumbs li a:hover {
     margin: 0;
     display: flex;
     flex-direction: row;
+    transition-duration: 200ms;
 }
 
 #profile-caret{
@@ -104,6 +108,10 @@ ul.site-breadcrumbs li a:hover {
 }
 .user-profile-dropdown:hover .dropbtn {
     color: rgba(0,0,0,0.7);
+}
+
+.user-profile-dropdown:hover {
+    background-color: #dfe5ef;
 }
 
 .dropdown-content {
@@ -190,6 +198,10 @@ ul.site-breadcrumbs li a:hover {
 .form-field a{
     color: #555;
 }
+.field-label{
+    margin-bottom: .4em;
+    font-size: .8rem;
+}
 
 .form-title{
     border-bottom: solid 1px #D4D4D5;
@@ -209,6 +221,13 @@ ul.site-breadcrumbs li a:hover {
     border-bottom: #d1d8dd 1px solid;
     height: 50px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#ride-status{
+    color: #8D99A6;
 }
 
 /* Input */
@@ -216,6 +235,7 @@ input{
     border: 1px solid #ced5db;
     border-radius: 0.2em;
     padding: 1em;
+    font-size: .9rem;
 }
 
 input:read-only{
@@ -238,7 +258,7 @@ input:read-only{
 
 /* Constants */
 .container{
-    width: 75%;
+    width: 68%;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -316,7 +336,7 @@ input:read-only{
 
 .ui.table thead th {
     color: #8d99a6;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .ui.table td{
@@ -325,10 +345,18 @@ input:read-only{
 
 .table-wrapper{
     overflow-x: auto;
+    display: flex;
+    justify-content: center;
 }
 .ui.very.basic.table td,  .ui.very.basic.table th{
     border: none;
-    border-bottom: 1px solid #d1d8dd;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    padding: 1em;
+    font-size: .9em;
+}
+
+.ui.very.basic.table{
+    border: 1px solid rgba(34, 36, 38, 0.15);
 }
 
 td > a{
@@ -490,4 +518,15 @@ td > a:hover{
 
 .closebtn:hover {
     color: black;
+}
+
+select {
+    background: transparent;
+   /* border: none; */
+   font-size: 14px;
+   height: 48px;
+   padding: 5px; /* If you add too much padding here, the options won't show in IE */
+   width: 268px;
+   border: 1px solid #ced5db;
+    border-radius: 0.2em;
 }

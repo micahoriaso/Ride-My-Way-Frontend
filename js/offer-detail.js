@@ -75,7 +75,8 @@ document.getElementById('request-ride').addEventListener('click', function(){
                     } else {
                         message.innerHTML = data.message;
                     }
-                   loadUpdatedRide()
+                    loadUpdatedRide()
+                    closeAlert()
                 });
             }
             else {
@@ -89,6 +90,7 @@ document.getElementById('request-ride').addEventListener('click', function(){
                     } else {
                         message.innerHTML = data.message;
                     }
+                    closeAlert()
                 });
             }
         })
